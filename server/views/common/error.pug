@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title=message
+    meta(name="description" content="AmazChina")
+    meta(name="keywords" content="AmazChina")
+    link(rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon")
+    link(rel="shortcut icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon")
+    meta(name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no")
+    
+  body
+    style.
+      .container{word-break:break-word;}
+      .wrap{font-size:20px;}
+      .img{text-align:center;margin-top:128px;}
+      .message{
+        text-align:center;
+      }
+    div.container
+      div.wrap
+        div.img
+          img(src="/assets/images/error.jpg" alt="AmazChina error page")
+        div.message
+          p!=message
+          p
+            |Lease click the link back to the <a href="/">Home Page</a>

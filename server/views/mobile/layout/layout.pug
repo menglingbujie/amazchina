@@ -1,0 +1,22 @@
+//- doctype html
+html
+  head
+    meta(charset="utf-8")
+    link(rel='shortcut icon' href='/favicon.ico' type="images/x-icon")
+    link(rel='icon' href='/favicon.ico' type="images/x-icon")
+    meta(name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no")
+    block header
+    script(src=Manifest.resource("js/runtime_mobile.js"))
+    script(src=Manifest.resource("js/vendor_mobile.js"))
+
+    include ../../common/common
+    script.
+      !(function(e,t){
+        var n = t.documentElement,d=e.devicePixelRatio||1,BASE_DESIGN=7.5;
+        function i() {var e = n.clientWidth / BASE_DESIGN;n.style.fontSize = e + "px"}
+        if (function e() { t.body ? t.body.style.fontSize = "16px" : t.addEventListener("DOMContentLoaded", e) }(),i()){}
+      })(window,document)
+  body
+    block contents
+
+    block scripts

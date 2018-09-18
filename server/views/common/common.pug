@@ -1,0 +1,21 @@
+script(type="text/javascript").
+  (function(){
+    var AmazChina = window.AmazChina = {};
+
+    AmazChina.initalState = !{JSON.stringify(initialState)};
+    AmazChina.resourceRoot = !{JSON.stringify(Manifest.getPublicRoot())};
+
+    AmazChina.i18n = function(key, def) {
+      if (this.initalState.langMap.map.hasOwnProperty(key)) {
+        return this.initalState.langMap.map[key];
+      }
+
+      if (!this.notFoundKeys) {
+        this.notFoundKeys = {}
+      }
+      this.notFoundKeys[key] = def || key;
+
+      return def || key;
+    }
+
+  })()

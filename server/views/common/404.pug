@@ -1,0 +1,86 @@
+doctype html
+html
+  head
+    title 404 | AmazChina
+    meta(name="description" content="AmazChina")
+    meta(name="keywords" content="AmazChina")
+    link(rel="icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon")
+    link(rel="shortcut icon" href="/favicon.ico" mce_href="/favicon.ico" type="image/x-icon")
+    meta(name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no")
+    
+    style.
+      @media(min-width: 1200px) {
+        .wrap {width: 1100px;}
+        div.go>.link {display: inline;}
+      }
+      @media(max-width: 1199px) {
+        .wrap {width: 100%;}
+        .wrap>div.img, .wrap>div.message {
+          display: block;
+          margin: 0 auto;
+          width: 70%;
+        }
+        .message {text-align: center;}
+        div.message>.errorMsg {margin-top: 20px; font-size: 30px;}
+        div.go>.link {margin-top:8px;}
+      }
+      *{margin: 0;padding: 0;}
+      .body
+      #newBridge{display: none;}
+      a{text-decoration: none;}
+      body,html{width: 100%; height: 100%}
+      img{width: 100%;}
+      .container{height: 100%}
+      .wrap {position: fixed; top: 50%; left: 50%; transform: translate(-50%, -60%);font-size: 0;}
+      .wrap>div{
+        display:block;text-align:center;margin:0 auto;
+      }
+      .wrap>.img {width: 45%;}
+      .wrap>.message {
+        margin-top: 20px;
+        padding: 0 5%;
+        width: 40%;
+        line-height: 1.4;
+      }
+      .message>.errorMsg { font-size: 50px; }
+      .message>.go {
+        margin-top: 18px;
+        font-size: 18px;
+        color: #999;
+      }
+      .go>.link>a {
+        padding: 0 12px;
+        display: inline-block;
+        color: #2988e8;
+        border-right: 1px solid #666; 
+      }
+      .go>.link>a:last-child {border-right: none; }
+      .go>.btn {
+        display: inline-block;
+        margin-left: 12px;
+        padding: 0 20px;
+        min-width: 105px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        background-color: #2988e8;
+        border-radius: 4px;
+      }
+      
+      
+  body
+    div.container
+      div.wrap
+        div.img
+          img(src="/assets/images/404.jpg" alt="AmazChina 404")
+        div.message
+          div.errorMsg=LangService.i18n("common.nopage_msg")
+          div.go.go1
+            span.text=LangService.i18n("common.nopage_nkyqw")
+            .link
+              a.link1(href="/")=LangService.i18n("common.nopage_home")
+          div.go.go2
+            span.text=LangService.i18n("common.nopage_or")
+            a.btn(href="javascript:history.back(-1);")=LangService.i18n("common.nopage_back")    
