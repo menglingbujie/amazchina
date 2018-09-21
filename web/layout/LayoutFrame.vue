@@ -1,6 +1,5 @@
 <template>
   <Container-Slot>
-    <Dialog-Call slot="dialog"></Dialog-Call>
     <Header-Bar slot="header"></Header-Bar>
     <Side-Bar slot="slidbar"></Side-Bar>
     <slot name="content"></slot>

@@ -21,7 +21,7 @@ export default {
   height:inherit;
   >.header{
     margin:0;padding:0;height:auto !important;
-    background-color:@color_32c5d2;
+    background-color:@color_black;
   }
 }
 </style>

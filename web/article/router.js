@@ -7,11 +7,11 @@ const router = new Router({
   routes: [
     {
       path: '/list',
-      component: () => require('./views/ArticleList.vue')
+      component: () => import('./views/ArticleList.vue')
     },
     {
       path: '/create',
-      component: () => require('./views/ArticleCreate.vue')
+      component: () => import('./views/ArticleCreate.vue')
     },
     { path: '*', redirect: '/list' }
   ]

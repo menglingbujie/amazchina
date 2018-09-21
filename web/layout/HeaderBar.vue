@@ -33,8 +33,7 @@ export default {
   },
   created(){
     this.$nextTick(()=>{
-      this.$store.dispatch('user/fetchUserInfo').then((resp)=>{
-      });
+      // this.$store.dispatch('user/fetchUserInfo').then((resp)=>{});
     })
   },
   computed:{
@@ -42,7 +41,7 @@ export default {
       return this.stateUser.userInfo;
     },
     nickName() {
-      return this.userInfo.nickname;
+      return this.userInfo.nickname||"Default";
     }
   },
   methods: {
@@ -65,7 +64,7 @@ export default {
 .navbar {
   line-height: 50px;
   border-radius: 0px !important;
-  background:none;
+  background:transparent !important;
   &.el-menu--horizontal {
     border: none;
     box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1);
@@ -79,12 +78,6 @@ export default {
     .btn_group{
       margin-right:30px;float:left;
       .tag,.status,.dropdown{margin-right:5px;}
-
-    }
-    .btn_call {
-      padding: 0;
-      color: @color_32c5d2;
-      vertical-align: middle;
     }
     .avatar-container {
       height: 50px;

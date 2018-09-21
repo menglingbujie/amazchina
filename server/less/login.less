@@ -1,8 +1,7 @@
 @import './common/common.less';
 @import './common/color.less';
 #rootAccount{
-  background:url('/assets/images/bg_login.jpg');height:100%;
-  background-size:cover;
+  background-color:@color_f7f7f7;height:100%;
   >.panel{
     width:540px;
     position:absolute;top:50%;left:50%;
@@ -11,7 +10,7 @@
     -webkit-box-shadow: 0 5px 10px 0 rgba(0,0,0,0.2);
     >.title{
       height:50px;line-height:50px;
-      background-color:@color_32c5d2;
+      background-color:@color_black;
       position:relative;
       >.logo{margin-left:15px;width:161px;text-align:center;vertical-align: middle;}
       >.global{
@@ -51,10 +50,10 @@
             text-align: center;display:none;
             position:relative;z-index:5;
             >li.item{
-              background-color:@color_32c5d2;
+              background-color:@color_black;
               cursor: pointer;
               &:hover{
-                background-color:@color_32c5d2_a8;
+                background-color:@color_black_a8;
               }
             }
           }
@@ -93,9 +92,9 @@
         input:-ms-input-placeholder {color: @color_aaa;}  /* Internet Explorer 10-11 */
         >button{
           position: relative;
-          background:@color_32c5d2;border:0;outline:0;
+          background:@color_black;border:0;outline:0;
           color:#fff;cursor:pointer;font-size:14px;
-          &:hover{background:rgba(50, 197, 210, .7);}
+          &:hover{background:@color_black_a8;}
           &[disabled]{
             background-color: #cccccc !important;
             color: #fff;

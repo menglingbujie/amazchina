@@ -8,6 +8,6 @@ import store from '../modules/article';
 new Vue({
   store,
   router,
-  render:h=>h(ArticleFrame)
+  render: h => h(ArticleFrame)
   
 }).$mount('#rootArticle');

@@ -1,7 +1,6 @@
 <template>
   <el-menu
     class="navmenu"
-    mode="vertical"
     :default-active="currentPath"
     :show-timeout="200"
     :collapse="isCollapse"
@@ -20,24 +19,38 @@
           </template>
           <!-- 二级导航 -->
           <template v-for="child in item.children">
-            <el-submenu :index="child.index" v-if="!hasOneShowingChildren(child.path,child.children) && checkForbiddenUrl(child.path)" :key="child.index">
+            <el-submenu :index="child.index" v-if="!hasOneShowingChildren(child.path,child.children)" :key="child.index">
               <i class="iconfont" v-if="child.meta.icon" :class="'icon-'+child.meta.icon"></i>
               <span slot="title">{{child.meta.title}}</span>
               <!-- 三级导航 -->
-              <a :href="subchild.path" class="link" v-for="subchild in child.children" :key="subchild.index" v-if="checkForbiddenUrl(subchild.path)">
-                <el-menu-item :index="subchild.index">
-                  <i class="iconfont" v-if="subchild.meta.icon" :class="'icon-'+subchild.meta.icon"></i>
-                  <span slot="title">{{subchild.meta.title}}</span>
-                </el-menu-item>
-              </a>
+              <el-menu-item :index="subchild.index" v-for="subchild in child.children" :key="subchild.index">
+                <a :href="subchild.path" class="link">
+                    <i class="iconfont" v-if="subchild.meta.icon" :class="'icon-'+subchild.meta.icon"></i>
+                    <span slot="title">{{subchild.meta.title}}</span>
+                </a>
+              </el-menu-item>
             </el-submenu>
             <!-- 没有三级导航 -->
-            <a :href="child.path" class="link" :key="child.index" v-else-if="checkForbiddenUrl(child.path)">
-              <el-menu-item :index="child.index">
-                <i class="iconfont" v-if="child.meta.icon" :class="'icon-'+child.meta.icon"></i>
-                <span slot="title">{{child.meta.title}}</span>
-              </el-menu-item>
-            </a>
+            <el-menu-item :index="child.index" v-else :key="child.index">
+              <a :href="child.path" class="link">
+                  <i class="iconfont" v-if="child.meta.icon" :class="'icon-'+child.meta.icon"></i>
+                  <span slot="title">{{child.meta.title}}</span>
+              </a>
+            </el-menu-item>
+          </template>
+        </el-submenu>
+        <!-- 导航-->
+        <el-submenu :index="item.index" v-else  :key="item.index">
+          <template slot="title">
+            <i class="iconfont" v-if="item.meta.icon" :class="'icon-'+item.meta.icon"></i>
+            <span slot="title">{{item.meta.title}}</span>
+          </template>
+          <template>
+            <el-menu-item :index="item.index">
+              <a :href="item.path" class="link">
+                  <span slot="title">{{item.meta.title}}</span>
+              </a>
+            </el-menu-item>
           </template>
         </el-submenu>
       </template>
@@ -96,13 +109,24 @@ export default {
 </script>
 <style lang="less">
 @import (reference) "../styles/common/color.less";
+.el-menu{
+  background-color:@color_333 !important;
+  .el-menu-item{
+    background-color:transparent !important;
+    &:hover{background-color:@color_333_a8 !important;color:@color_aaa !important;}
+  }
+}
 .navmenu{
+  background-color:@color_333 !important;
   &:not(.el-menu--collapse) {
     width: 200px;
     min-height: 400px;
   }
-  >.el-submenu.is-active>.el-submenu__title {
-    background-color: @color_353d49!important;
+  >.el-submenu{
+    >.el-submenu__title{
+      background-color:transparent !important;
+      &:hover{background-color:@color_333_a8 !important;}
+    }
   }
   .iconfont{color:inherit;}
   .link{display:block;}
