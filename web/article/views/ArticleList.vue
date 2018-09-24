@@ -16,15 +16,17 @@
     <div class="panel-body">
       <el-dropdown type="primary" size="small" trigger="click">
         <el-button type="primary" size="small">
-          批量操作<i class="el-icon-arrow-down el-icon--right"></i>
+          <span>{{i18n('article["Batch operation"]')}}</span>
+          <i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>删除</el-dropdown-item>
-          <el-dropdown-item>发布</el-dropdown-item>
-          <el-dropdown-item>草稿</el-dropdown-item>
+          <el-dropdown-item>{{i18n('article.Delete')}}</el-dropdown-item>
+          <el-dropdown-item>{{i18n('article.New')}}</el-dropdown-item>
+          <el-dropdown-item>{{i18n('article.Draft')}}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-table
+        class="table"
         ref="multipleTable"
         :data="tableData"
         tooltip-effect="dark"
@@ -36,43 +38,51 @@
         <el-table-column
           column-key="aid"
           prop="title"
-          label="标题"
-          width="370">
+          :label="i18n('article.Title')"
+          width="350">
         </el-table-column>
         <el-table-column
           prop="status"
-          label="全部状态"
+          :label="i18n('article.Status')"
           :filters="filterStatusData"
           :filter-method="filterStatusHandler">
         </el-table-column>
         <el-table-column
           prop="cate"
-          label="分类"
+          :label="i18n('article.Category')"
           show-overflow-tooltip>
         </el-table-column>
         <el-table-column
           prop="label"
-          label="标签"
+          :label="i18n('article.Label')"
           show-overflow-tooltip
           :filters="filterLabelData"
           :filter-method="filterLabelHandler">
         </el-table-column>
         <el-table-column
           prop="comment"
-          label="评论"
+          :label="i18n('article.Comment')"
           show-overflow-tooltip>
         </el-table-column>
         <el-table-column
           prop="author"
-          label="作者"
+          :label="i18n('article.Author')"
           :filters="filterAuthorData"
           :filter-method="filterAuthorHandler"
           show-overflow-tooltip>
         </el-table-column>
         <el-table-column
           prop="date"
-          label="发布时间"
+          min-width="100px"
+          :label="i18n('article.Date')"
           show-overflow-tooltip>
+        </el-table-column>
+        <el-table-column class-name="btn_group" min-width="125px" :label="i18n('article.Control')">
+          <template slot-scope="scope">
+            <el-button class="btn" size="mini" icon="iconfont icon-edit" @click.stop="doShowDialog('edit', scope.row)"></el-button>
+            <el-button class="btn" size="mini" icon="iconfont icon-caogaoxiang" @click.stop="doShowDialog('draft', scope.row)"></el-button>
+            <el-button class="btn" size="mini" icon="iconfont icon-shanchu" @click.stop="doShowDialog('delete', scope.row)"></el-button>
+          </template>
         </el-table-column>
       </el-table>
     </div>
@@ -178,7 +188,7 @@ export default {
       page: {
         current: 1,
         size: 5,
-        total: 0,
+        total: 26,
       },
       isLoading: false,
       filterLabelData:[],
@@ -187,11 +197,15 @@ export default {
     };
   },
   created() {
+    let statusArr=[],labelArr=[],authorArr=[];
     this.tableData.forEach((v,i)=>{
-      this.filterLabelData.push({text:v.label,value:v.label});
-      this.filterStatusData.push({text:v.status_text,value:v.status_text});
-      this.filterAuthorData.push({text:v.author,value:v.author});
+      statusArr.push({text:v.status,value:v.status});
+      labelArr.push({text:v.label,value:v.label});
+      authorArr.push({text:v.author,value:v.author});
     })
+    this.filterLabelData = _.uniqBy(labelArr,'text')
+    this.filterStatusData = _.uniqBy(statusArr,'text')
+    this.filterAuthorData = _.uniqBy(authorArr,'text')
   },
   methods: {
     filterLabelHandler(value,row,column){
@@ -223,7 +237,24 @@ export default {
     },
     showError(msg) {
       this.$message.error(msg)
-    }
+    },
+    doShowDialog(key, row) {
+      if(key=="delete"){
+        this.$alert('是否删除？' , {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'success',
+              message: '删除成功'
+            });
+          }
+        });
+      }else if(key=='draft'){
+        console.log("===caogao")
+      }else if(key=="edit"){
+        console.log("===edit")
+      }
+    },
   }
 }
 </script>
@@ -239,12 +270,12 @@ export default {
   }
   >.panel-body{
     margin-top:20px;
+    >.table{margin-top:10px;}
   }
   >.panel-footer {
     padding: 8px 20px;
-    border: 1px solid #eee;
     border-top: none;
-    >.pagination{text-align: center;}
+    >.pagination{text-align: right;}
   }
 }
 </style>
