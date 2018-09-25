@@ -18,9 +18,5 @@ module.exports = {
   "Title":"标题",
   "Draft":"草稿",
   "New Article":"添加文章",
-  "":"",
-  "":"",
-  "":"",
-  "":"",
-  "":"",
+  "Insert your text":"开始新征程",
 };

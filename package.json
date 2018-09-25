@@ -28,6 +28,7 @@
     "pug": "~2.0.0-beta11",
     "serve-favicon": "~2.4.2",
     "vue": "~2.5.10",
+    "vue-quill-editor": "^3.0.6",
     "vue-resource": "^1.5.1",
     "vue-router": "3.0.1",
     "vuex": "3.0.1"

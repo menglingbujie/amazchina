@@ -13,32 +13,36 @@
     <div class="panel-body">
       <el-form class="form">
         <el-row>
-          <el-col :span="18">
+          <el-col :span="18" class="content">
             <el-form-item>
               <el-input placeholder="输入标题"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-checkbox v-model="checked">备选项</el-checkbox>
+              <el-checkbox v-model="isRecommend">推荐</el-checkbox>
             </el-form-item>
             <el-form-item>
-              <quill-editor ref="myTextEditor"
-                v-model="content"
-                :options="editorOption"
-                @change="onEditorChange($event)">
-              </quill-editor>
+              <quill-editor
+                v-model="editorContent"
+                :options="editorOpt"
+              ></quill-editor>
+              <div>{{editorContent}}</div>
             </el-form-item>
             <el-form-item>
               <el-input placeholder="关键词（3-5个即可，多个关键词之间用英文都好隔开)"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-input type="textarea" placeholder="描述（建议不超过140个字符）"></el-input>
+              <el-input type="textarea" placeholder="描述（建议不超过140个字符）" :rows="4"></el-input>
             </el-form-item>  
+            <el-form-item class="btns">
+              <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
+              <el-checkbox class="ispublish" v-model="isPublish">立即发布</el-checkbox>
+            </el-form-item>
           </el-col>
-          <el-col :span="5" push='1'>
+          <el-col :span="5" :push='1' class="silderbar">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <h3>选择分类</h3>
-                <h5>选择文章所属目录，课随时发布再多个类</h5>
+                <h5 class="subtitle">选择文章所属目录，课随时发布再多个类</h5>
               </div>
               <div class="tree">
                 <el-tree
@@ -52,12 +56,23 @@
               </div>
             </el-card>
             <el-card class="box-card">
-              <div slot="header" class="clearfix">
-                <span>卡片名称</span>
-                <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-              </div>
-              <div v-for="o in 4" :key="o" class="text item">
-                {{'列表内容 ' + o }}
+              <div slot="header" class="clearfix">标签</div>
+              <div class="section">
+                <el-form class="form_label" size="small">
+                  <el-form-item>
+                    <el-row>
+                      <el-col :span="17"><el-input placeholder="标签"></el-input></el-col>
+                      <el-col :span="6" :push="1"><el-button type="primary">提交</el-button></el-col>
+                    </el-row>
+                  </el-form-item>
+                </el-form>
+                <div class="tags">
+                  <el-tag closable @close="doCloseTag(1)">标签一</el-tag>
+                  <el-tag closable @close="doCloseTag(2)">标签二</el-tag>
+                  <el-tag closable @close="doCloseTag(3)">标签三</el-tag>
+                  <el-tag closable @close="doCloseTag(4)">标签四</el-tag>
+                </div>
+                <div class="tip">多个标签请用英文逗号(,)隔开</div>
               </div>
             </el-card>
           </el-col>
@@ -69,37 +84,37 @@
   </div>
 </template>
 <script>
-// require styles
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
 import moment from "moment";
 import _ from "lodash";
-import { quillEditor } from 'vue-quill-editor';
+import {quillEditor,Quill} from "vue-quill-editor";
+
 export default {
   data() {
     return {
-      content: 'Hello Quill',
-      editorOption: {
-        modules: {
-          toolbar: [
-            [{ 'size': ['small', false, 'large'] }],
-            ['bold', 'italic'],
+      isRecommend:false,//是否推荐
+      isPublish:false,//是否立即发布
+      editorOpt:{
+        placeholder:this.i18n('article["Insert your text"]'),
+        modules:{
+          toolbar:[
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote', 'code-block'],
             [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link', 'image']
-          ],
-          imageDrop: true,
-          imageResize: {
-            displayStyles: {
-              backgroundColor: 'black',
-              border: 'none',
-              color: 'white'
-            },
-            modules: [ 'Resize', 'DisplaySize', 'Toolbar' ]
-          }
+            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'color': [] }, { 'background': [] },{ 'align': [] }],
+            ['link','image','video'],
+            ['clean'],
+          ]
         }
       },
+      editorContent:"",
       isLoading: false,
       treeData: [{
           id: 1,
@@ -142,18 +157,10 @@ export default {
         }
     };
   },
-  components: {
-    quillEditor
-  },
-  computed:{
-    // editor() {
-    //   return this.$refs.myTextEditor.quillEditor
-    // }
-  },
+  components:{quillEditor},
   methods: {
-    onEditorChange({ editor, html, text }) {
-      // console.log('editor change!', editor, html, text)
-      this.content = html
+    doCloseTag(tid){
+      console.log("===close tag===",tid);
     },
     showError(msg) {
       this.$message.error(msg)
@@ -161,6 +168,9 @@ export default {
   }
 }
 </script>
+<style>
+.ql-picker{line-height:normal;}
+</style>
 <style lang="less" scoped>
 .panel.article_new {
   >.panel-header {
@@ -172,12 +182,42 @@ export default {
     }
   }
   >.panel-body{
-    .quill-editor {
-      height: 200px;
-    }
-    .quill-editor {
-      border: 1px solid #ccc;
-      border-bottom: none;
+    margin-top:20px;
+    >.form{
+      .quill-editor,
+      .quill-code {
+        height: 240px;
+        display:inline-block;
+        width:100%;
+      }
+
+      .content{
+        >.btns{
+          .ispublish{margin-left:20px;}
+        }
+      }
+      .silderbar{
+        >.box-card{
+          margin-top:20px;    
+          &:first-child{margin-top:0;}
+          .clearfix{
+            >.subtitle{font-size:14px; color:#999;margin-top:5px;}
+          }
+          .section{
+            >.form_label{overflow:hidden;}
+            >.tags{
+              >*{
+                margin:5px 0 0 5px;
+                &:nth-child(1),
+                &:nth-child(2),
+                &:nth-child(3){margin-top:0;}
+                &:nth-child(3n+1){margin-left:0;}
+              }
+            }
+            >.tip{font-size:14px;margin-top:10px;}
+          }
+        }
+      }
     }
   }
   >.panel-footer {
