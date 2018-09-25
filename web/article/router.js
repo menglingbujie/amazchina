@@ -13,6 +13,10 @@ const router = new Router({
       path: '/create',
       component: () => import('./views/ArticleCreate.vue')
     },
+    {
+      path: '/labels',
+      component: () => import('./views/ArticleLabels.vue')
+    },
     { path: '*', redirect: '/list' }
   ]
 })

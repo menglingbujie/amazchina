@@ -18,9 +18,9 @@ const routes = (i18n) => {
       ]
     },
     {
-      path: '/label',
+      path: '/article#/label',
       index:"2",
-      meta: { title: i18n('common["Label Manager"]'), icon: 'label', }
+      meta: { title: i18n('common["Label Manager"]'), icon: 'label' }
     },
   ]
 }

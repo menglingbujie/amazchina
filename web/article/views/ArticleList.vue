@@ -240,12 +240,12 @@ export default {
     },
     doShowDialog(key, row) {
       if(key=="delete"){
-        this.$alert('是否删除？' , {
-          confirmButtonText: '确定',
+        this.$alert(this.i18n('Article["Are you sure to delte?"]') , {
+          confirmButtonText: this.i18n("Article.Confirm"),
           callback: action => {
             this.$message({
               type: 'success',
-              message: '删除成功'
+              message: this.i18n('Remove complete')
             });
           }
         });
@@ -275,7 +275,7 @@ export default {
   >.panel-footer {
     padding: 8px 20px;
     border-top: none;
-    >.pagination{text-align: right;}
+    >.pagination{margin-top:20px;text-align: right;}
   }
 }
 </style>

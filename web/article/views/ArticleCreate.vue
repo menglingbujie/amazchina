@@ -15,10 +15,10 @@
         <el-row>
           <el-col :span="18" class="content">
             <el-form-item>
-              <el-input placeholder="输入标题"></el-input>
+              <el-input :placeholder="i18n('article[\'Input title\']')"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-checkbox v-model="isRecommend">推荐</el-checkbox>
+              <el-checkbox v-model="isRecommend">{{i18n('article.Recommend')}}</el-checkbox>
             </el-form-item>
             <el-form-item>
               <quill-editor
@@ -28,21 +28,21 @@
               <div>{{editorContent}}</div>
             </el-form-item>
             <el-form-item>
-              <el-input placeholder="关键词（3-5个即可，多个关键词之间用英文都好隔开)"></el-input>
+              <el-input :placeholder="i18n('article[\'Keywords(3-5 is fine)\']')"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-input type="textarea" placeholder="描述（建议不超过140个字符）" :rows="4"></el-input>
+              <el-input type="textarea" :placeholder="i18n('article[\'Description(limit 140 words)\']')" :rows="4"></el-input>
             </el-form-item>  
             <el-form-item class="btns">
-              <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
-              <el-checkbox class="ispublish" v-model="isPublish">立即发布</el-checkbox>
+              <el-button type="primary">{{i18n('article.Submit')}}</el-button>
+              <el-checkbox class="ispublish" v-model="isPublish">{{i18n('article["Publish now"]')}}</el-checkbox>
             </el-form-item>
           </el-col>
           <el-col :span="5" :push='1' class="silderbar">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
-                <h3>选择分类</h3>
-                <h5 class="subtitle">选择文章所属目录，课随时发布再多个类</h5>
+                <h3>{{i18n('article["Choose category"]')}}</h3>
+                <h5 class="subtitle">{{i18n('article["Choose path of article"]')}}</h5>
               </div>
               <div class="tree">
                 <el-tree
@@ -56,13 +56,13 @@
               </div>
             </el-card>
             <el-card class="box-card">
-              <div slot="header" class="clearfix">标签</div>
+              <div slot="header" class="clearfix">{{i18n("article.Label")}}</div>
               <div class="section">
                 <el-form class="form_label" size="small">
                   <el-form-item>
                     <el-row>
-                      <el-col :span="17"><el-input placeholder="标签"></el-input></el-col>
-                      <el-col :span="6" :push="1"><el-button type="primary">提交</el-button></el-col>
+                      <el-col :span="17"><el-input :placeholder="i18n('article.Label')"></el-input></el-col>
+                      <el-col :span="6" :push="1"><el-button type="primary">{{i18n("article.Submit")}}</el-button></el-col>
                     </el-row>
                   </el-form-item>
                 </el-form>
@@ -72,7 +72,7 @@
                   <el-tag closable @close="doCloseTag(3)">标签三</el-tag>
                   <el-tag closable @close="doCloseTag(4)">标签四</el-tag>
                 </div>
-                <div class="tip">多个标签请用英文逗号(,)隔开</div>
+                <div class="tip">{{i18n('article["Please use comma more labels"]')}}</div>
               </div>
             </el-card>
           </el-col>

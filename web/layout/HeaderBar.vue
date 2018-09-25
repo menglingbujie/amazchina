@@ -33,7 +33,7 @@ export default {
   },
   created(){
     this.$nextTick(()=>{
-      // this.$store.dispatch('user/fetchUserInfo').then((resp)=>{});
+      this.$store.dispatch('user/fetchUserInfo').then((resp)=>{});
     })
   },
   computed:{
